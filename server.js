@@ -140,6 +140,22 @@ app.delete('/customer/:id', async(req, res) => {
       res.status(500).json({message: error.message});
    }
 });
+
+//Call array data model
+const Student = require('./models/arrayModel');
+
+app.post('/student', async (req, res) => {
+    try {
+        // Create a new student document based on the request body
+        const student = await Student.create(req.body);
+
+        res.status(201).json({ student });
+    } catch (error) {
+        console.error('Error creating student:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 //Close strictQuery
 mongoose.set("strictQuery", false);
 //Connect to database server
